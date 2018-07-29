@@ -8,7 +8,7 @@ I use these scripts for my real life needs, I share them here as they might be o
 
 ## Content :
 
-- CircleCI full CI/CD
+- [CircleCI full CI/CD](https://github.com/venatoria/devops_scripts/tree/master/circleci-node-docker-ec2)
 - Docker snippets
 
 > I will be updating..
