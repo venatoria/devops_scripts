@@ -5,7 +5,7 @@ version: 2
 # Can extend later if needed
 # We only assume the following :
 # - That CircleCI has ssh access to the remote server (an ubuntu/debian host)
-# - That the repo is linked to CircleCI of course 
+# - That the repo is linked to CircleCI of course
 #
 jobs:
      # The build job
@@ -24,7 +24,7 @@ jobs:
                     # This way we can send it to the host instead of pushing to registery
                     # Working around a registery (dockerHub or ECR) saves money and setup
                     name: save the image for deployement
-                    command: docker save -o deploy-docker-image.tar venatoria/emasters-connection-api # deploy-docker-image.tar can be any name
+                    command: docker save -o deploy-docker-image.tar [USER]/[NAME] # deploy-docker-image.tar can be any name
                - run:
                     name: Copy the image to our instance
                     command: scp -o StrictHostKeyChecking=no deploy-docker-image.tar USER@HOST:~ # Change USER and HOST to yours

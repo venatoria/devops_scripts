@@ -40,8 +40,8 @@ echo "=> Loading image from file.."
 
 # Load the images put here by CircleCI
 # Check config.yml to see how it got here
-sudo docker load -i emasters-connection-docker-image.tar
+sudo docker load -i deploy-docker-image.tar # Change if you have renamed differently in the config.yml
 
 #Run the app within the container
-sudo docker run -d venatoria/emasters-connection-api
+sudo docker run -d [USER]/[NAME] # Change to yours 
 echo "=> Running container.."
