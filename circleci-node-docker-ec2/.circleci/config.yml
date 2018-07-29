@@ -1,0 +1,43 @@
+version: 2
+#
+# CircleCI Config for a typical Node app
+# Full CI/CD Workflow
+# Can extend later if needed
+# We only assume the following :
+# - That CircleCI has ssh access to the remote server (an ubuntu/debian host)
+# - That the repo is linked to CircleCI of course 
+#
+jobs:
+     # The build job
+     deploy:
+          working_directory: ~/app
+          docker:
+               - image: docker:17.05.0-ce-git
+          steps:
+               - checkout #get fresh code form github
+               - setup_remote_docker #enable remote docker execution
+               - run:
+                    name: building image #We build here so we don't need pulling code into ec2
+                    command: docker build -t [USER]/[NAME] . #Change [USER] and [NAME] to yours
+               - run:
+                    # We need the image as real file
+                    # This way we can send it to the host instead of pushing to registery
+                    # Working around a registery (dockerHub or ECR) saves money and setup
+                    name: save the image for deployement
+                    command: docker save -o deploy-docker-image.tar venatoria/emasters-connection-api # deploy-docker-image.tar can be any name
+               - run:
+                    name: Copy the image to our instance
+                    command: scp -o StrictHostKeyChecking=no deploy-docker-image.tar USER@HOST:~ # Change USER and HOST to yours
+               - run:
+                    name: Copy the deploy script
+                    command: scp -o StrictHostKeyChecking=no deploy.sh USER@HOST:~ # Change USER and HOST to yours
+               - run:
+                    name: Deploy prod build
+                    # We ssh into the host to load the saved image and run it
+                    command:  ssh -o StrictHostKeyChecking=no USER@HOST "cd ~; sh deploy.sh" # Change USER and HOST to yours
+
+workflows:
+     version: 2
+     build_and_deploy:
+          jobs:
+               - deploy
