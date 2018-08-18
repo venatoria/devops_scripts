@@ -10,5 +10,6 @@ I use these scripts for my real life needs, I share them here as they might be o
 
 - [CircleCI full CI/CD](https://github.com/venatoria/devops_scripts/tree/master/circleci-node-docker-ec2)
 - Docker snippets
+- [Gitlab full CI/CD](https://github.com/venatoria/devops_scripts/tree/master/gitlab-meteor-mup-ec2)
 
 > I will be updating..

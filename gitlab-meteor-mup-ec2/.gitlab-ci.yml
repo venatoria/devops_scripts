@@ -1,0 +1,22 @@
+stages:
+  - dev
+  - prod
+
+variables:
+  METEOR_ALLOW_SUPERUSER: "true"
+  
+deploy_dev:
+  stage: dev
+  image: node:10
+  script:
+    - sh deploy.sh dev;
+  only:
+    - dev
+
+deploy_prod:
+  stage: prod
+  image: node:10
+  script:
+    - sh deploy.sh prod;
+  only:
+    - master
